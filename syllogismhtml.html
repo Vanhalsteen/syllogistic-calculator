@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Javascript External Script</title>
+
+</head>
+<body>
+
+<script >
+
+lst = ['1AAA', '1EAE', '1AII', '1EIO', '1AAI', '1EAO', '2AOO', '2EAE', '2AEE', '2EIO', '2AEO', '2EAO', '3OAO', '3IAI', '3AII', '3EIO', '3AAI', '3EAO', '4AEO', '4IAI', '4AEE', '4EIO', '4AAI', '4EAO'];
+pattern = '1AA';
+
+function check_p(p){
+    s=0
+    if (p[0]==p[3]) {
+        s=1;
+	};
+    if (p[1]==p[3]){
+        s=2;
+	}
+    if (p[0]==p[2]){
+        s=3;
+	}
+    if (p[1]==p[2]){
+        s=4;
+	};
+	
+    return s;
+}
+
+
+function reduce_p(s){
+    return [s[0][1],s[0][2],s[1][1],s[1][2]];
+}
+
+function silfun1(h){
+    s=check_p(reduce_p(h)) + h[0][0]+  h[1][0];
+
+    return s;
+}
+
+
+function silfun(s){
+    lst = ['1AAA', '1EAE', '1AII', '1EIO', '1AAI', '1EAO', '2AOO', '2EAE', '2AEE', '2EIO', '2AEO', '2EAO', '3OAO', '3IAI', '3AII', '3EIO', '3AAI', '3EAO', '4AEO', '4IAI', '4AEE', '4EIO', '4AAI', '4EAO']
+    out=[]
+	out.shift();
+	for (var i =0; i<lst.length; i++){
+		if (lst[i].slice(0,3)==s){
+			out.push(lst[i]);
+		}
+	}
+	return out;
+}
+//h=[['A','Socrat', 'Man'], ['A','Man', 'Mortal']]
+//document.write('1234'.slice(0,3));
+
+//document.write('+');
+
+
+//h=[['A','Socrat', 'Man'],[ 'A','Mortal', 'Socrat']]
+//document.write(silfun1(h));
+	
+function constr(h){
+
+    res='';
+    s=silfun(silfun1(h));
+    for (var i=0; i<s.length; i++){
+		if (s[i][0]==1){
+			str_b=s[i][3]+', '+h[1][1]+', '+h[0][2];
+			res=res+str_b;
+			//document.write(res);
+		};
+		if (s[i][0]==2){
+			str_b=s[i][3]+', '+h[1][1]+', '+h[0][1];
+			res=res+str_b;
+			//document.write(res);
+		};
+		if (s[i][0]==3){
+			str_b=s[i][3]+', '+h[1][2]+', '+h[0][2];
+			res=res+str_b;
+			//document.write(res);
+		};
+		if (s[i][0]==4){
+			str_b=s[i][3]+', '+h[1][2]+', '+h[0][1];
+			res=res+str_b;
+			
+			//document.write(res);
+		};		
+		res=res+"; ";
+	}
+	res=res.slice(0,res.length-2); 
+    return res;
+}
+
+//h=[['E','Socrat', 'Man'],[ 'A','Mortal', 'Socrat']]
+//h=[['A','Socrat', 'Man'], ['A','Man', 'Mortal']]
+document.write(constr(h));
+
+//(constr(document.getElementById('formula').value))
+
+function launch(){
+	h00=document.getElementById('formula00').value;
+	h01=document.getElementById('formula01').value;
+	h02=document.getElementById('formula02').value;
+	h10=document.getElementById('formula10').value;
+	h11=document.getElementById('formula11').value;
+	h12=document.getElementById('formula12').value;
+	return constr([[h00,h01,h02],[h10,h11,h12]]);
+}
+</script>
+
+
+<form>
+  <label for="formula"><b>Введите силлологизм</b></label><br>
+  <br>
+  <label for="formula">Первое высказываение</label><br>
+  <label for="formula" size="20">Буква </label><input type="text" id="formula00" name="formula" size="1"><br>
+  <label for="formula" size="20">Первая часть </label><input type="text" id="formula01" name="formula" size="20"><br>
+  <label for="formula" size="20">Вторая часть </label><input type="text" id="formula02" name="formula" size="20"><br>
+  <br>
+  <label for="formula">Второе высказываение</label><br>
+  <label for="formula" size="20">Буква </label><input type="text" id="formula10" name="formula" size="1"><br>
+  <label for="formula" size="20">Первая часть </label><input type="text" id="formula11" name="formula" size="20"><br>
+  <label for="formula"size="20">Вторая часть </label><input type="text" id="formula12" name="formula" size="20"><br>
+  <br>
+   <input type="button" onclick="window.alert(launch())" name="ok" value="Рассчитать">
+</form>
+
+
+</body>
+</html>
